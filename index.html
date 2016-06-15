@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoList">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+	<script src="js/angular.js"></script>
+	<script src="js/angular-animate.js"></script>
+	<script src="index.js"></script>
+	<!-- <link href="http://cdn.bootcss.com/materialize/0.97.6/css/materialize.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body ng-controller="mainCtrl">
+	<section id="category" class="button-collapse" >
+		<div class="cat-title">
+			<span class="logo"></span>
+			<a href="" class="remind">提醒事项</a>
+			<a href="" class="addlist" ng-click="addQingdanItem()"></a>
+		</div>
+		<ul class="plan">
+			<li>
+			    <span class="plan-icon"></span>
+				<a href="" class="lis">已计划</a>
+				<span class="border-down"></span>
+			</li>
+			<li ng-class="{active:v===currentQingdan}" ng-click="setCurrent($index)" ng-repeat="v in qingdan">
+			    <span class="circle" ng-class="v.theme"></span>
+				<a href="" class="lis">
+					<input type="text" ng-blur="savedata()" ng-model="v.name" value="v.name">
+				</a>
+				<span class="border-down"></span>
+				<span class="wifi"></span>
+			</li>
+		</ul>
+	</section>
+	<section id="Information">
+		<div class="search-box">
+			<div class="search-box-left">
+				<span class="search-icon"></span>
+				<input type="text" class="search" placeholder="搜索所有提醒">
+			</div>
+			<div class="search-box-right">
+				<div class="username">
+					<span>kang</span>
+				</div>
+				<span class="ge"></span>
+				<span class="help"></span>
+			</div>
+		</div>
+		<div class="down">
+			<div class="kind {{currentQingdan.color}}">
+				<div class="kind-name" ng-show="currentQingdan">{{currentQingdan.name}}</div>
+				<a href="" ng-click="togglee=!togglee" class="select {{currentQingdan.color}}">选项</a>
+				<div class="paper" ng-show="togglee" ng-init="togglee=false">
+					<div class="paper-in">
+						<input type="text" class="paper-name {{currentQingdan.color}}" ng-blur="savedata()" ng-show="currentQingdan" value="{{currentQingdan.name}}">
+						<span class="liebiao">列表颜色</span>
+						<ul class="liebiaose">
+							<li class="blue-bg"></li>
+							<li class="orange-bg"></li>
+							<li class="purple-bg"></li>
+							<li class="green-bg"></li>
+							<li class="yellow-bg"></li>
+							<li class="pink-bg"></li>
+							<li class="brown-bg"></li>
+						</ul>
+						<span class="liebiao-line"></span>
+						<div class="set">
+							<a href="" class="set-left">删除</a>
+							<ul>
+								<li><a href="">取消</a></li>
+								<li><span>|</span></li>
+								<li><a href="">完成</a></li>
+							</ul>
+						</div>
+					</div>
+					<span class="arrow"></span>
+				</div>
+			</div>
+			<div class="finish">
+				<div class="f-left">
+					<span class="unfold"></span>
+					<span class="finish-name" ng-show="currentQingdan">已完成: 
+						<i>	
+							{{currentQingdan.shixiang.length}}
+						</i>项
+					</span>
+				</div>
+				<div class="f-right">
+					<a href="" class="{{currentQingdan.color}}" ng-click="deleteItem()">清除已完成事项</a>
+				</div>
+			</div>
+			<ul class="something">
+				<li class="date">2016 年 6 月 4 号 星期六</li>
+				<li ng-class="{item:v.state==true}" ng-show="v.state" ng-repeat="v in currentQingdan.shixiang" class="item">
+					<span class="item-icon {{currentQingdan.itemColor}}" ng-click="v.state=!v.state"></span>
+					<input type="text" class="item-name" style="border-bottom: 0" ng-blur="savedata()" ng-model="v.name" value="v.name">
+				</li>
+				<li ng-class="{item:v.state==false}" ng-show="!v.state" ng-repeat="v in currentQingdan.shixiang" class="item2">
+					<span class="item-icon {{currentQingdan.itemColor2}}" ng-click="v.state=!v.state"></span>
+					<input type="text" class="item-name" placeholder="新项目..." ng-blur="savedata()" ng-model="v.name" value="v.name">
+				</li>
+			</ul>
+			<input type="text" ng-click="newItem()" placeholder="新项目" class="newItem">
+		</div>
+	</section>
+
+
+</body>
+</html>
